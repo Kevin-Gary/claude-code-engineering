@@ -15,7 +15,7 @@ const STEPS: { icon: IconName; title: string; body: string }[] = [
   {
     icon: "bell",
     title: "Stay on track",
-    body: "Gentle reminders exactly when each plant needs you — never a generic weekly buzz.",
+    body: "Gentle reminders exactly when each plant needs you, never a generic weekly buzz.",
   },
 ];
 
@@ -28,7 +28,7 @@ export function HowItWorks() {
             How it works
           </span>
           <h2 className="mt-3 font-[family-name:var(--font-display)] text-[32px] font-extrabold tracking-[-0.02em] text-[var(--forest-900)] md:text-[42px]">
-            From “what is this?” to thriving — in three taps.
+            From “what is this?” to thriving - in three taps.
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">

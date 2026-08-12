@@ -4,7 +4,7 @@ import { Icon } from "@/components/ui/Icon";
 /** Feature spotlight — the photo-based diagnosis, on the dark forest surface. */
 const POINTS = [
   "Spot pests, over- and under-watering, and light problems early.",
-  "Plain-language explanations — no jargon, no panic.",
+  "Plain-language explanations. No jargon, no panic.",
   "A step-by-step recovery plan, with reminders to match.",
 ];
 
@@ -20,8 +20,8 @@ export function FeatureDiagnose() {
             Something looks off? Find out why.
           </h2>
           <p className="mb-[26px] mt-0 max-w-[420px] text-[17px] leading-[1.6] text-[rgba(248,245,238,0.78)]">
-            Snap a photo of a struggling plant and Verdant tells you what&apos;s
-            wrong — and exactly how to nurse it back.
+            Snap a photo of a struggling plant. Verdant tells you what&apos;s
+            wrong, and exactly how to nurse it back.
           </p>
           <ul className="mb-[30px] mt-0 flex list-none flex-col gap-3.5 p-0">
             {POINTS.map((p) => (
