@@ -10,6 +10,11 @@
 
 Running log of durable decisions and gotchas. Newest first. Keep entries short.
 
+## 2026-07-29 - Gotcha: native Auto Memory runs alongside our hand-built MEMORY.md
+Setup audit found Claude Code now ships on-by-default auto memory (autoMemoryEnabled), so two
+memory systems run at once here with no explanation. Not yet reconciled; audit also flagged stale
+/agents wizard claim in agents/PRIMER.md and missing workflows/ + launch.json index entries.
+
 ## 2026-07-08 - Gotcha: plan-save Stop hook was leaking other projects' plans
 Claude Code writes every plan-mode plan to one machine-wide dir (~/.claude/plans). The old Stop
 hook copied the globally newest plan into ./plans, so a plan authored in another repo landed here.
