@@ -17,8 +17,8 @@ teaching notes in the raw source.
 ## Quickstart
 
 ```bash
-git clone https://github.com/Kevin-Gary/claude-code-tutorial.git
-cd claude-code-tutorial
+git clone https://github.com/Kevin-Gary/claude-code-engineering.git
+cd claude-code-engineering
 npm install            # the repo root is an npm workspace; app/ is the package
 npm run check          # lint + typecheck + unit tests
 npm run dev            # http://localhost:3000

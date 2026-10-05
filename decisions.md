@@ -55,7 +55,7 @@ every native Claude Code construct demonstrated on it. Verdant stays the example
 session teaches concepts and patterns, not a language, so the additions are explained to transfer to
 any stack even though the code is TypeScript and Next.js.
 
-**Decision.** On this branch, add:
+**Decision.** In a separate repo (`claude-code-engineering`, forked from `claude-code-tutorial`), add:
 - A workspace root (`package.json` with `workspaces: ["app"]`, one lockfile) so sessions, hooks, MCP
   servers and Playwright all run from the repo root.
 - An app backend: `waitlist` and `care-guides/[slug]` API routes, pure domain logic in
@@ -74,8 +74,8 @@ any stack even though the code is TypeScript and Next.js.
 - Deliberate exercises for the review, security and QA demos. They are not documented in this repo,
   so the demos stay honest: the instructor keeps the answer key and run of show privately.
 
-**Consequences.** The repo is heavier than the base skeleton on purpose; this variant lives on its
-own branch so the lightweight cohort repo is unaffected. The agent-teams env flag is removed from the
+**Consequences.** The repo is heavier than the base skeleton on purpose; this variant lives in its
+own repo so the lightweight cohort repo is unaffected. The agent-teams env flag is removed from the
 committed `.claude/settings.json`, because while it is on a subagent Claude names launches as a
 teammate, which would break the subagent demos; it moves to `CLAUDE.local.md.example` as a personal
 opt-in. The answer key for the exercises lives outside this public repo: a permission rule can't

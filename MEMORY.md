@@ -10,7 +10,7 @@
 
 Running log of durable decisions and gotchas. Newest first. Keep entries short.
 
-## 2026-10-05 - Engineering-heavy teaching variant on this branch
+## 2026-10-05 - Engineering-heavy teaching variant (its own repo, forked from claude-code-tutorial)
 Turned the lightweight skeleton into the in-depth-session repo: repo root is now an npm workspace
 (app/ is the package), with a real backend (waitlist + care-guide API routes, care-schedule and
 plan domain logic), Vitest unit tests, Playwright E2E and config, engineering skills and agents,
