@@ -10,6 +10,13 @@
 
 Running log of durable decisions and gotchas. Newest first. Keep entries short.
 
+## 2026-10-05 - Engineering-heavy teaching variant on this branch
+Turned the lightweight skeleton into the in-depth-session repo: repo root is now an npm workspace
+(app/ is the package), with a real backend (waitlist + care-guide API routes, care-schedule and
+plan domain logic), Vitest unit tests, Playwright E2E and config, engineering skills and agents,
+control hooks, and a Playwright/docs MCP setup. Agent-teams flag removed from committed settings
+(it turns named subagents into teammates). Full reasoning: decisions.md 2026-10-05.
+
 ## 2026-07-29 - Gotcha: native Auto Memory runs alongside our hand-built MEMORY.md
 Setup audit found Claude Code now ships on-by-default auto memory (autoMemoryEnabled), so two
 memory systems run at once here with no explanation. Not yet reconciled; audit also flagged stale

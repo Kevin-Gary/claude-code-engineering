@@ -3,7 +3,7 @@ import { cn } from "@/lib/cn";
 
 /**
  * Verdant primary action button. Pill-shaped, calm hover (slight lift + darken)
- * and a tactile press (subtle scale-down) — driven by Tailwind state variants so
+ * and a tactile press (subtle scale-down), driven by Tailwind state variants so
  * it renders on the server without client JS.
  */
 type Variant = "primary" | "accent" | "secondary" | "ghost";
@@ -33,7 +33,7 @@ export interface ButtonProps
   fullWidth?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  /** When set, the button renders as an anchor — handy for in-page CTAs. */
+  /** When set, the button renders as an anchor, handy for in-page CTAs. */
   href?: string;
 }
 

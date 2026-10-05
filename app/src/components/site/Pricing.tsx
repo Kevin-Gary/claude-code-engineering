@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
 /**
- * Pricing section — Verdant's freemium model: a free tier plus two paid tiers.
+ * Pricing section: Verdant's freemium model: a free tier plus two paid tiers.
  * The model and its business rationale live in the product context (CLAUDE.md).
  * Built from design-system tokens and the shared <Button>/<Icon> components,
  * mirroring the data-array + map pattern in HowItWorks.tsx.

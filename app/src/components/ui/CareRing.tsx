@@ -1,7 +1,7 @@
 import React from "react";
 
 /**
- * Circular progress ring — health score, days-until-watering, hydration level.
+ * Circular progress ring: health score, days-until-watering, hydration level.
  * Renders centered children (e.g. a value + caption).
  */
 type Tone = "forest" | "sprout" | "water" | "sun" | "thriving" | "wilt";

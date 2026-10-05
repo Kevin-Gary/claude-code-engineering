@@ -1,9 +1,9 @@
 /* ===========================================================================
-   Verdant marketing site — global stylesheet.
+   Verdant marketing site: global stylesheet.
    Tailwind v4 + the synced Verdant design tokens (the single source of truth
    for color, type, spacing, radii, shadows, and motion).
    =========================================================================== */
-/* Webfont @import must come first — CSS ignores @import rules that follow any
+/* Webfont @import must come first. CSS ignores @import rules that follow any
    other rule, and Tailwind emits rules. Keep this above `@import "tailwindcss"`. */
 @import "../styles/tokens/fonts.css";
 

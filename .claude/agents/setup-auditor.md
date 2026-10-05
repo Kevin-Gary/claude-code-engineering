@@ -33,10 +33,10 @@ what you are looking for.
 - `.claude/settings.json`
 - `.claude/rules/`
 - `.claude/skills/`
-- `.claude/commands/`
+- `.claude/agent-memory/`, `.claude/workflows/`, `.claude/launch.json`
 - `.claude/agents/`
 - `.claude/hooks/`
-- `.mcp.json`
+- `.mcp.json`, `REVIEW.md`, `.github/workflows/`
 - `MEMORY.md`, `decisions.md`, `docs/`, `plans/`
 
 **The sources.** Use these, and prefer them over anything else you find:
@@ -49,6 +49,7 @@ what you are looking for.
 - `https://code.claude.com/docs/en/mcp`
 - `https://code.claude.com/docs/en/commands`
 - The Claude Code changelog and release notes
+- The `claude-code-docs` MCP server in `.mcp.json`, when it is connected, searches the same docs
 
 Blogs, forum posts and social threads are not sources. They have been wrong
 repeatedly about this surface. If the official docs do not say it, do not report

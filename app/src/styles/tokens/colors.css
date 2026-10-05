@@ -5,7 +5,7 @@
    =========================================================================== */
 :root {
   /* --- Forest (primary brand green) ------------------------------------ */
-  --forest-900: #102A20;  /* deepest — display text on light, dark surfaces */
+  --forest-900: #102A20;  /* deepest: display text on light, dark surfaces */
   --forest-800: #16382A;
   --forest-700: #1B4434;
   --forest-600: #1F5240;  /* primary brand green */
@@ -19,7 +19,7 @@
   /* --- Sprout (bright living-green accent) ----------------------------- */
   --sprout-700: #6FA22E;
   --sprout-600: #84BC38;
-  --sprout-500: #9FD356;  /* the bright accent — fresh new-growth green */
+  --sprout-500: #9FD356;  /* the bright accent, fresh new-growth green */
   --sprout-400: #B4E072;
   --sprout-300: #CDEB9C;
   --sprout-200: #E3F4C8;
@@ -51,7 +51,7 @@
   --wilt-100:   #F3E0D9;
 
   /* =====================================================================
-     SEMANTIC ALIASES — prefer these in components & screens
+     SEMANTIC ALIASES: prefer these in components & screens
      ===================================================================== */
   --bg-page:        var(--cream);
   --bg-surface:     var(--paper);

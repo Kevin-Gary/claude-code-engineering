@@ -1,28 +1,36 @@
-# app/ — the Verdant marketing site
+# app/: the Verdant marketing site
 
 The real product surface: a **Next.js + TypeScript + Tailwind v4** marketing site, built on
-Verdant's **Claude Design** system (tokens + components imported via the `claude_design` MCP).
+Verdant's **Claude Design** system (tokens and components imported via the `claude_design` MCP),
+plus a small engineering surface (two API routes and some domain logic) for the testing,
+review and security lessons.
 
 ## Run it
+
+The repo root is an npm workspace, so install and run from the root, not from `app/`:
+
 ```bash
-cd app
 npm install
-npm run dev        # http://localhost:3000
+npm run dev          # http://localhost:3000
+npm run check        # lint + typecheck + unit tests
+npm run test:e2e     # Playwright end-to-end tests (starts the dev server for you)
+npm run build        # production build
 ```
-`npm run build` produces an optimized static export of the landing page.
 
 ## How it's wired
-- **Design tokens are the source of truth.** `src/styles/tokens/{fonts,colors,typography,spacing,effects}.css`
-  are synced **verbatim** from the Verdant design system. `src/app/globals.css` imports them (the
-  webfont `@import` is kept first so the browser doesn't ignore it) and pulls in Tailwind v4.
-- **Components mirror the design system.** `src/components/ui/` holds the primitives
-  (`Button`, `Badge`, `Avatar`, `CareRing`, `Icon`); `src/components/site/` holds the six landing
-  sections. They style themselves with Tailwind utilities that reference the token CSS variables
-  (e.g. `bg-[var(--forest-600)]`, `rounded-[var(--radius-pill)]`), so the tokens stay authoritative.
-- **Icons** come from `lucide-react` (the system's Lucide choice), wrapped by a typed `Icon`.
-- **Page:** `src/app/page.tsx` composes Nav → Hero → How it works → Diagnose → Pricing → Footer.
 
-## Notes / swap-later
-- Fonts load from the Google Fonts CDN (matching the design system's `fonts.css`). Swap for
-  `next/font` or licensed binaries when available.
-- Hero / diagnose imagery uses the design system's Unsplash placeholders — replace with owned assets.
+- **Design tokens are the source of truth.** `src/styles/tokens/*.css` are synced verbatim from the
+  Verdant design system and imported by `src/app/globals.css`.
+- **Components mirror the design system.** `src/components/ui/` holds the primitives;
+  `src/components/site/` holds the landing sections. They style themselves with Tailwind utilities
+  that reference the token CSS variables (e.g. `bg-[var(--forest-600)]`).
+- **Domain logic is pure and tested.** `src/lib/care/schedule.ts` (watering and feeding dates) and
+  `src/lib/waitlist/plans.ts` each have a Vitest file beside them.
+- **API routes** live in `src/app/api/`. The waitlist store is in memory, so it resets when the
+  dev server restarts. That keeps the demo free of a database.
+- **Page:** `src/app/page.tsx` composes Nav, Hero, How it works, Diagnose, Pricing, Waitlist, Footer.
+
+## Notes / swap later
+
+- Fonts load from the Google Fonts CDN. Swap for `next/font` or licensed binaries when available.
+- Hero and diagnose imagery use the design system's Unsplash placeholders.

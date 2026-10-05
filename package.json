@@ -1,0 +1,27 @@
+{
+  "name": "verdant",
+  "private": true,
+  "description": "Verdant: the marketing site in app/ plus the Claude Code setup used to build and test it.",
+  "workspaces": [
+    "app"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "npm run dev -w app",
+    "build": "npm run build -w app",
+    "start": "npm run start -w app",
+    "lint": "npm run lint -w app",
+    "typecheck": "npm run typecheck -w app && tsc --noEmit -p .",
+    "test": "npm run test -w app",
+    "test:watch": "npm run test:watch -w app",
+    "test:e2e": "playwright test",
+    "check": "npm run lint && npm run typecheck && npm run test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "^22.20.5",
+    "typescript": "^5.9.3"
+  }
+}

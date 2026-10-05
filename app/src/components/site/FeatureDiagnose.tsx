@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
-/** Feature spotlight — the photo-based diagnosis, on the dark forest surface. */
+/** Feature spotlight: the photo-based diagnosis, on the dark forest surface. */
 const POINTS = [
   "Spot pests, over- and under-watering, and light problems early.",
   "Plain-language explanations. No jargon, no panic.",

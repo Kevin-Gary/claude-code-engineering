@@ -43,3 +43,42 @@ Next.js site in `app/`. The site's only job is to turn a plant-curious visitor i
 optimizes for load speed and conversion. This repo is the SITE plus its Claude Code setup, not the
 app. A web-wrapper would have been faster to ship but could not deliver the camera and offline
 experience the product promise depends on, so we took the native cost on purpose.
+
+---
+
+## 2026-10-05 - Engineering-heavy teaching variant for the in-depth session
+
+**Context.** The base repo is a deliberately lightweight skeleton for the regular cohorts. A
+separate 3-hour "Claude Code in depth" session for an engineering team needs the same repo to carry
+real engineering surface area: an app with logic and endpoints to test, review and secure, plus
+every native Claude Code construct demonstrated on it. Verdant stays the example and the brand. The
+session teaches concepts and patterns, not a language, so the additions are explained to transfer to
+any stack even though the code is TypeScript and Next.js.
+
+**Decision.** On this branch, add:
+- A workspace root (`package.json` with `workspaces: ["app"]`, one lockfile) so sessions, hooks, MCP
+  servers and Playwright all run from the repo root.
+- An app backend: `waitlist` and `care-guides/[slug]` API routes, pure domain logic in
+  `app/src/lib/care` and `app/src/lib/waitlist`, each with Vitest tests, and a waitlist UI section.
+- Testing as a system: Vitest config and scripts, `npm run check`, Playwright config plus E2E specs,
+  a `verify` project skill (runs before each commit), and the Playwright test agents from
+  `init-agents`. Acceptance criteria in `docs/features/`, test plans in `specs/`.
+- Control: a PreToolUse guard hook (block/deny/ask), typecheck-on-edit, a SessionStart context hook
+  matching `compact`, a notification hook; permissions that allow checks, ask on push and dependency
+  changes, deny `.env`.
+- Skills (`verdant-review`, `write-tests`, `security-checklist`, `verify`, `handoff`) and agents
+  (read-only `security-reviewer`, `code-reviewer` and `qa-explorer` with project memory, `test-writer`).
+- MCP: Playwright MCP (pinned), the Playwright test server, and the no-auth Claude Code docs server.
+- Automation and CI: GitHub Actions (deterministic CI + AI review with the official action), a
+  Bitbucket headless-`claude -p` pattern, `REVIEW.md`, and `docs/automation` + `docs/team-practices`.
+- Deliberate exercises for the review, security and QA demos. They are not documented in this repo,
+  so the demos stay honest: the instructor keeps the answer key and run of show privately.
+
+**Consequences.** The repo is heavier than the base skeleton on purpose; this variant lives on its
+own branch so the lightweight cohort repo is unaffected. The agent-teams env flag is removed from the
+committed `.claude/settings.json`, because while it is on a subagent Claude names launches as a
+teammate, which would break the subagent demos; it moves to `CLAUDE.local.md.example` as a personal
+opt-in. The answer key for the exercises lives outside this public repo: a permission rule can't
+reliably hide a file from Claude (Read rules are best-effort for search tools and do not see
+`grep -r .`), and anyone can read a public repo. Pinned versions verified against npm
+and the cached docs on 2026-10-05.

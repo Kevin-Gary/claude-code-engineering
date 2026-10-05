@@ -1,48 +1,16 @@
 # Claude Code Tutorial
 
-A clean, minimal, fully-commented reference repo that shows **every core Claude Code building block in one place**. Built for [Claude Camp](https://claudecamp.ai) Day 2.
+A clean, fully-commented reference repo that shows **every core Claude Code building block in one
+place**, built around a real, runnable app. Clone it, read it, steal the patterns.
 
-Clone it, read it, steal the patterns into your own projects. Every file here is a working example with comments explaining *what it is* and *why it exists*.
+The example product is **Verdant**, a fictional plant-care company. Its marketing site is a real
+Next.js app in [`app/`](./app), with a small backend (two API routes, some domain logic) so the
+testing, review and security lessons have real code to work on. Every file carries `<!-- 📘 -->`
+teaching notes in the raw source.
 
-> The example product is **Verdant**, a fictional plant-care and plant-ID company, so the examples read like real config instead of `foo`/`bar` toys. The actual product (a marketing site) lives in [`app/`](./app).
-
----
-
-## The map
-
-| Path | What it teaches |
-| --- | --- |
-| [`CLAUDE.md`](./CLAUDE.md) | The project context "contract" Claude auto-loads every session. Scopes, inheritance, `@`-imports. |
-| [`MEMORY.md`](./MEMORY.md) | **Committed memory**: a team-shared, versioned log CLAUDE.md `@`-imports so it loads every session. |
-| [`decisions.md`](./decisions.md) | The **deep ADR archive**. Deliberately NOT imported, so it loads only when Claude reads it. |
-| [`CLAUDE.local.md.example`](./CLAUDE.local.md.example) | Personal, gitignored overrides for shared repos. |
-| [`.claude/settings.json`](./.claude/settings.json) | Permissions (allow/ask/deny), env, and lifecycle **hooks**. |
-| [`.claude/rules/`](./.claude/rules) | **Rules**: modular instructions, always-on or path-scoped via `paths:` globs. |
-| [`.claude/hooks/`](./.claude/hooks) | Shell **hooks** wired to lifecycle events (here: a Stop hook that nudges memory). |
-| [`.claude/commands/`](./.claude/commands) | Custom slash commands (e.g. `/ship-update`) + the `$ARGUMENTS` pattern. |
-| [`.claude/agents/`](./.claude/agents) | Custom **subagents** (YAML frontmatter, scoped tools + model). |
-| [`.claude/skills/`](./.claude/skills) | **Skills**: reusable recipes Claude pulls in when relevant. |
-| [`.mcp.json`](./.mcp.json) | **MCP** servers wired into this project. |
-| [`docs/`](./docs) | **On-demand reference** library (specs, research). Read when relevant, never auto-imported. |
-| [`plans/`](./plans) | Durable copies of plans from plan mode (the per-project history pattern). |
-| [`app/`](./app) | The real thing to operate on: the Verdant site, built with the synced Claude Design system. |
-
----
-
-## A note on comments
-
-Markdown files here (`CLAUDE.md`, commands, agents, skills, plans) carry inline teaching notes marked `<!-- 📘 ... -->`. You can read them in the raw file; they stay out of the rendered view.
-
-**JSON files can't have comments**, so the two JSON configs are documented right here:
-
-### `.mcp.json`
-Declares the MCP servers this project connects to. MCP ("Model Context Protocol") is the open standard that lets Claude talk to outside tools and data through a consistent interface. This repo's example is **`claude_design`** (`https://api.anthropic.com/v1/design/mcp`), the connector that powers `/design-sync` between Claude Code and Claude Design. Run `/design-login` once to authorize it, then `/mcp` to see/manage it.
-
-### `.claude/settings.json`
-- **`$schema`** - points at the Claude Code settings schema so your editor autocompletes and validates the file as you edit.
-- **`permissions`** - `allow` / `ask` / `deny` lists that decide what Claude can do without stopping to ask. This repo allows reads/edits and safe git, asks before `git push`, and denies destructive commands + reading `.env*`.
-- **`env`** - environment variables set for the session (here, an experimental agent-teams flag).
-- **`hooks.Stop`** - two hooks fire when a session ends: one copies your most recent plan from `~/.claude/plans/` into this repo's `plans/` (durable per-project plan history, since the home-level copy only survives a compaction or two), the other runs [`.claude/hooks/persist-memory.sh`](./.claude/hooks/persist-memory.sh) to nudge Claude to record any durable decision in `MEMORY.md`.
+> This repo is language-agnostic by design. The code is TypeScript and Next.js, but the lessons are
+> about concepts, tooling and patterns. [`docs/learn/stack-translation.md`](./docs/learn/stack-translation.md)
+> maps every artifact to Python, Go, Java and Ruby.
 
 ---
 
@@ -51,9 +19,97 @@ Declares the MCP servers this project connects to. MCP ("Model Context Protocol"
 ```bash
 git clone https://github.com/Kevin-Gary/claude-code-tutorial.git
 cd claude-code-tutorial
-claude                 # start Claude Code in this folder
+npm install            # the repo root is an npm workspace; app/ is the package
+npm run check          # lint + typecheck + unit tests
+npm run dev            # http://localhost:3000
+claude                 # start Claude Code and poke around
 ```
 
-Then poke around: ask it about the repo, try `/ship-update`, run the `brand-voice` skill, open plan mode on a change to `app/`.
+E2E tests: `npm run test:e2e` (needs a browser: `npx playwright install chromium` once). Build: `npm run build`.
 
-Built at [Claude Camp](https://claudecamp.ai) · Master the full Claude stack.
+---
+
+## The map
+
+### Context and memory
+| Path | Teaches |
+| --- | --- |
+| [`CLAUDE.md`](./CLAUDE.md) | The project contract Claude auto-loads every session. Scopes, inheritance, `@`-imports, compact instructions. |
+| [`app/CLAUDE.md`](./app/CLAUDE.md) | A nested CLAUDE.md that loads only when Claude works in `app/`. |
+| [`MEMORY.md`](./MEMORY.md) | Committed, team-shared memory, `@`-imported so it loads every session. |
+| [`decisions.md`](./decisions.md) | The ADR archive. NOT imported, so it loads only when read. |
+| [`CLAUDE.local.md.example`](./CLAUDE.local.md.example) | Personal, gitignored overrides. |
+| [`.claude/rules/`](./.claude/rules) | Modular instructions: always-on, or path-scoped via `paths:` globs. |
+| [`.claude/agent-memory/`](./.claude/agent-memory) | Notes an agent writes for itself, committed and shared (of Claude Code's built-in memory systems, the only one stored in the repo). |
+
+### Teaching Claude your codebase
+| Path | Teaches |
+| --- | --- |
+| [`.claude/skills/`](./.claude/skills) | Skills: `verdant-review`, `write-tests`, `verify`, `handoff`, `security-checklist`, `brand-voice`, `ship-update`. See `skills/EXPLAIN.md`. |
+| [`.claude/agents/`](./.claude/agents) | Subagents: `security-reviewer`, `code-reviewer`, `test-writer`, `qa-explorer`, plus Playwright's test agents. See `agents/PRIMER.md`. |
+| [`.claude/workflows/`](./.claude/workflows) | A dynamic workflow that orchestrates many subagents, run as `/verdant-design-audit`. |
+
+### Control
+| Path | Teaches |
+| --- | --- |
+| [`.claude/settings.json`](./.claude/settings.json) | Permissions (allow/ask/deny), hooks, plugins, marketplaces. |
+| [`.claude/hooks/`](./.claude/hooks) | A PreToolUse guard, typecheck-on-edit, SessionStart context, a notification. |
+
+### Connect and automate
+| Path | Teaches |
+| --- | --- |
+| [`.mcp.json`](./.mcp.json) | MCP servers: Playwright, the Playwright test server, the Claude Code docs. See `EXPLAIN-MCP.md`. |
+| [`.github/workflows/`](./.github/workflows) | CI (deterministic, no AI) and AI PR review with the official action. |
+| [`ci-examples/`](./ci-examples) + [`scripts/ci/`](./scripts/ci) | Headless `claude -p` review for any CI (a pattern). |
+| [`REVIEW.md`](./REVIEW.md) | Tunes Anthropic's managed Code Review for this repo. |
+
+### Quality and QA
+| Path | Teaches |
+| --- | --- |
+| [`app/src/lib/**/*.test.ts`](./app/src/lib) | Vitest unit tests next to the code they cover. |
+| [`e2e/`](./e2e) | Playwright E2E tests. |
+| [`docs/features/`](./docs/features) | Acceptance criteria, the input to the QA chain. |
+| [`specs/`](./specs) | Test plans: acceptance criteria to Markdown plan to tests. |
+
+### Reference
+| Path | Teaches |
+| --- | --- |
+| [`docs/learn/`](./docs/learn) | The agentic loop and search, tokens and context, memory layers, control (modes, rules, hooks), stack translation. |
+| [`docs/automation/`](./docs/automation) | `/loop`, Desktop and cloud routines, worktrees, Remote Control. |
+| [`docs/team-practices.md`](./docs/team-practices.md) | What to commit, PR conventions for AI-assisted code. |
+| [`app/`](./app) | The real app to operate on. |
+
+---
+
+## The two JSON configs (JSON can't carry comments)
+
+### `.mcp.json`
+MCP ("Model Context Protocol") lets Claude talk to outside tools through a consistent interface.
+This repo wires up four servers: `claude_design` (the design system, via `/design-sync`),
+`claude-code-docs` (searches the official docs, no auth), `playwright` (a real browser Claude can
+drive) and `playwright-test` (tools for Playwright's test agents). Pin versions in a team file;
+reference secrets as `${VAR}`, never values. Full notes in [`EXPLAIN-MCP.md`](./EXPLAIN-MCP.md).
+
+### `.claude/settings.json`
+- **`permissions`**: `allow` / `ask` / `deny`. This repo allows the test and check commands, asks
+  before `git push` and dependency changes, and denies `.env` reads.
+  A `Read` deny rule also covers Bash file commands it recognizes (`cat`, `head`, `sed`). It cannot
+  see a `grep -r .` that never names the file, or a script that opens it; the guard hook
+  (`guard.mjs`) catches some of those, and the sandbox is the real wall. Modes and precedence are
+  in [`docs/learn/04-control.md`](./docs/learn/04-control.md).
+  "Yes, don't ask again" writes the new rule to `settings.local.json`.
+- **`hooks`**: SessionStart context (also after `/compact`), a PreToolUse guard, typecheck after
+  every edit, a notification, and the Stop hooks that save plans and nudge memory.
+- **`extraKnownMarketplaces` + `enabledPlugins`**: register the `anthropics/skills` marketplace for
+  the team and enable `example-skills`.
+
+---
+
+## The 3-hour session
+
+This repo is the artifact for a "Claude Code in depth" session. The public learning notes are in
+[`docs/learn/`](./docs/learn) and [`docs/automation/`](./docs/automation). The code has a few
+deliberate bugs and security issues for the review, security and QA demos. Finding them is the
+exercise, so there's no answer key in this repo.
+
+Built at [Claude Camp](https://claudecamp.ai).

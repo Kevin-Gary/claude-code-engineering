@@ -1,6 +1,6 @@
 /* ===========================================================================
    VERDANT · SPACING & LAYOUT TOKENS
-   4px base grid. Verdant leans roomy — default to the larger steps.
+   4px base grid. Verdant leans roomy, so default to the larger steps.
    =========================================================================== */
 :root {
   --space-0:  0;

@@ -1,0 +1,37 @@
+# 📘 PATTERN, NOT AN OFFICIAL INTEGRATION. Anthropic ships first-party integrations for GitHub Actions
+# and GitLab CI/CD. Bitbucket Pipelines has none, but every CI system can run the Claude Code CLI in
+# headless mode (`claude -p`). This file shows that pattern. To use it, copy it to the repo root as
+# bitbucket-pipelines.yml and add ANTHROPIC_API_KEY as a SECURED repository variable.
+#
+# Two pipelines on every pull request:
+#   1. checks: the deterministic gate (no AI), same as .github/workflows/ci.yml
+#   2. ai-review: scripts/ci/claude-review.sh asks Claude for a read-only review, as JSON
+image: node:22
+
+definitions:
+  caches:
+    npm: ~/.npm
+
+pipelines:
+  pull-requests:
+    "**":
+      - parallel:
+          - step:
+              name: Checks (no AI)
+              caches: [npm]
+              script:
+                - npm ci
+                - npm run check
+                - npm run build
+          - step:
+              name: AI review (headless claude -p)
+              caches: [npm]
+              # Full history, so `git diff origin/<base>...HEAD` can find the merge base.
+              clone:
+                depth: full
+              script:
+                - npm install -g @anthropic-ai/claude-code
+                - export BASE_BRANCH="$BITBUCKET_PR_DESTINATION_BRANCH"
+                - bash scripts/ci/claude-review.sh
+              artifacts:
+                - claude-review.json

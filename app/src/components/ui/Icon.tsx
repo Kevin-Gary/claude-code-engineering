@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 
 /**
- * Verdant's icon — a thin, typed wrapper over Lucide (the system's icon set:
+ * Verdant's icon: a thin, typed wrapper over Lucide (the system's icon set:
  * rounded line caps, 2px stroke, `currentColor`). Register an icon here before
  * using it; the union `IconName` keeps usage honest at compile time.
  */

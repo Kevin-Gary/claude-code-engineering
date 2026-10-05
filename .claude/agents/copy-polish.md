@@ -8,7 +8,7 @@ model: sonnet
      in its OWN context window with its own system prompt (the body below), its own tool allowlist
      (`tools:`), and its own model (`model:`). Claude delegates to it when a task matches the
      `description`, or you can call it by name. This one CAN edit (Read, Edit, Grep, Glob), so it
-     rewrites copy in place — but it touches only user-facing strings, never logic or markup. The
+     rewrites copy in place, but it touches only user-facing strings, never logic or markup. The
      brand voice it enforces is defined once in the `brand-voice` skill; this agent applies it. -->
 
 You are a copy editor for Verdant, a plant-care and plant-identification app. Your one job is

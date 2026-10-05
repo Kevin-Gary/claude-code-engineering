@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { CareRing } from "@/components/ui/CareRing";
 import { Icon } from "@/components/ui/Icon";
 
-/** Hero — headline, value prop, app CTA, and a plant photo with a floating care card. */
+/** Hero: headline, value prop, app CTA, and a plant photo with a floating care card. */
 export function Hero() {
   return (
     <header className="mx-auto grid max-w-[var(--content-max)] grid-cols-1 items-center gap-14 px-6 pb-[90px] pt-10 md:grid-cols-[1.05fr_0.95fr] md:px-10">

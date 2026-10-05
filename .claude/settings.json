@@ -1,25 +1,38 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
-  },
   "permissions": {
     "allow": [
       "Read",
       "Edit",
       "Bash(npm run *)",
-      "Bash(git status)",
-      "Bash(git diff:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)"
-    ],
-    "deny": [
-      "Bash(rm -rf *)",
-      "Read(./.env)",
-      "Read(./.env.*)"
+      "Bash(npx vitest *)",
+      "Bash(npx playwright test *)",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "mcp__claude-code-docs",
+      "mcp__playwright"
     ],
     "ask": [
-      "Bash(git push:*)"
+      "Bash(git push *)",
+      "Bash(npm install *)",
+      "Bash(npm i *)",
+      "Bash(npm uninstall *)",
+      "Bash(npx playwright install *)",
+      "Edit(**/package.json)"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.local)",
+      "Read(**/.env.*.local)",
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)"
     ]
   },
   "hooks": {
@@ -29,6 +42,50 @@
           {
             "type": "command",
             "command": "mkdir -p \"$CLAUDE_PROJECT_DIR/.claude\" && touch \"$CLAUDE_PROJECT_DIR/.claude/.session-start\""
+          }
+        ]
+      },
+      {
+        "matcher": "startup|resume|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-context.sh\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard.mjs\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/typecheck-after-edit.sh\"",
+            "timeout": 120,
+            "statusMessage": "Type-checking the edit"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt|idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/notify.sh\""
           }
         ]
       }
@@ -47,6 +104,14 @@
         ]
       }
     ]
+  },
+  "extraKnownMarketplaces": {
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    }
   },
   "enabledPlugins": {
     "example-skills@anthropic-agent-skills": true

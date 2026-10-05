@@ -1,74 +1,81 @@
-<!-- 📘 CLAUDE.md is the file Claude Code auto-loads at the start of EVERY session in this
-     folder. It is your "contract" with Claude: who you are, what you're building, how you
-     want it to work. Claude also loads ~/.claude/CLAUDE.md (you, every project) and walks UP
-     the folder tree loading any parent CLAUDE.md too, so context inherits from broad to narrow.
-     Keep this tight and high-signal. It is loaded into context, so every line costs tokens. -->
+<!-- 📘 CLAUDE.md is auto-loaded at the start of EVERY session in this folder. It is your contract
+     with Claude: who you are, what you're building, how you want it to work. Claude also loads
+     ~/.claude/CLAUDE.md and any parent CLAUDE.md, broad to narrow. Keep it tight: every line costs
+     tokens in every session. Target under ~200 lines. -->
 
 # Verdant
 
-Verdant is a plant-care and plant-identification company. This repo holds the **marketing
-site** (in `app/`) plus the Claude Code setup used to build and run it.
+Verdant is a plant-care and plant-identification company. This repo holds the **marketing site**
+(in `app/`) plus the Claude Code setup used to build, test and ship it. It doubles as a teaching
+repo: the comments marked `<!-- 📘 ... -->` explain what each piece is and why it exists.
 
-<!-- 📘 @import loads MEMORY.md in full at the start of every session (our committed, team-shared
-     working memory). decisions.md and docs/ are deliberately NOT imported: they're read on demand,
-     so they cost zero context until a task actually needs them. -->
+<!-- 📘 @import loads MEMORY.md in full every session (our committed, team-shared working memory).
+     decisions.md and docs/ are NOT imported: they load only when read, so they cost zero context
+     until a task needs them. -->
 @MEMORY.md
 
 ## Reference (read on demand, not imported)
-- `decisions.md` - the deep ADR archive. Read or grep it for the full "why" behind a decision.
-- `docs/` - reference library (specs, research). Check it when a task calls for it, or pull one
-  file into a prompt, e.g. `@docs/verdant-market-research.md` for pricing and positioning work.
+- `decisions.md`: the ADR archive. Grep it for the full "why" behind a decision.
+- `docs/`: specs, the session's learning notes, automation guides. Pull one in with `@docs/...`.
 
-## What we're building
-A fast, friendly marketing site that turns plant-curious visitors into app installs. The site
-is built with **Next.js + TypeScript + Tailwind**, styled with Verdant's **Claude Design**
-system (synced into this repo via `/design-sync`).
+## The engineering surface
+A Next.js 15 marketing site in `app/`, plus a small backend for the testing and security lessons:
+two API routes (`app/src/app/api/waitlist`, `app/src/app/api/care-guides/[slug]`) and pure domain
+logic in `app/src/lib/care` and `app/src/lib/waitlist`, each with unit tests next to it.
+Acceptance criteria live in `docs/features/`, test plans in `specs/`, E2E tests in `e2e/`.
 
-## Pricing & business model
-Verdant runs a **freemium subscription**: a free tier that gets people in the door, plus two
-paid tiers billed monthly or annually.
+## Commands (run from the repo root; it is an npm workspace)
+- `npm run dev`: start the site at http://localhost:3000
+- `npm run check`: lint + typecheck + unit tests (run it before you say "done"; CI runs it plus build and E2E)
+- `npm test` / `npm run typecheck` / `npm run lint`: the pieces of `check`
+- `npm run test:e2e`: Playwright end-to-end tests (starts the dev server for you)
+- `npm run build`: production build
 
-| Tier | Monthly | Annual | Who it's for |
+## Engineering conventions
+- Business rules go in `app/src/lib/` as pure functions, each with a `*.test.ts` beside it. Route
+  handlers and components stay thin.
+- API routes validate and bound every input at the boundary, and return only the fields the caller
+  needs. Never log or expose personal data beyond what a feature needs.
+- Never render user-supplied text as HTML. React escapes text by default; keep it that way.
+- Domain dates are ISO strings (`YYYY-MM-DD`) handled in UTC.
+- Style `app/` with the design tokens in `globals.css`; never hardcode hex or pixel values.
+- Server components by default; add `"use client"` only for state, effects or browser APIs.
+
+## Testing rules
+- A bug fix starts with a failing test that reproduces the bug.
+- Never weaken, skip or delete an assertion to get to green. If a test looks wrong, ask first.
+- Run `npm run check` before you say a change is done; run `npm run test:e2e` when the page changed.
+
+## How to work here
+- Match the existing patterns in `app/`; look before you build.
+- Keep copy on-brand: warm, second person, short sentences, no hype words, no em-dashes (see the
+  `brand-voice` skill and rule).
+- Small, reviewable changes. Use plan mode for anything non-trivial.
+- Never commit secrets. Personal, machine-specific context goes in `CLAUDE.local.md` (gitignored).
+
+## Pricing and business model
+Freemium: a free tier that feeds the install funnel, plus two paid tiers (the reasoning is in
+`decisions.md`, 2026-06-24). Prices shown on the site must match this table; if they disagree, this
+file wins and the site is wrong.
+
+| Tier | Monthly | Annual | For |
 | --- | --- | --- | --- |
-| **Free** | $0 | $0 | First few plants: ID up to 5 plants/mo, reminders for up to 3 plants, community access. |
-| **Plus** | $5.99 | $39.99 (save ~44%) | A growing collection: unlimited ID, unlimited care plans + smart seasonal reminders, photo diagnosis (Plant Doctor), light meter & room placement. |
-| **Family** | $9.99 | $79.99 (save ~33%) | The whole household: everything in Plus, up to 5 members, a shared plant library, priority expert help, early access. |
-
-**Why this model:**
-- **Free tier feeds the install funnel.** The site's whole job is installs. Giving away the
-  magic moment (identify a plant, get a real care plan) removes friction, builds trust, and
-  drives word of mouth, the cheapest growth we have.
-- **Plus is the revenue core.** Keeping plants alive is a *recurring* problem, so a recurring
-  price is honest. The paid features (unlimited ID, smart reminders, diagnosis) map directly to
-  ongoing value, not a one-time unlock.
-- **Family lifts ARPU** on our most engaged households (multi-person plant collections) and is
-  nearly free to serve once Plus exists.
-- **Priced for the market.** Benchmarked against Planta / PictureThis (~$30–40/yr). Plus at
-  $39.99/yr sits mid-market; the annual discount nudges toward annual plans for better LTV and
-  lower churn.
-
-## How to work in this repo
-<!-- 📘 Conventions go here. This is where you teach Claude your taste once, instead of
-     re-explaining it in every prompt. -->
-- Match the existing component and file patterns in `app/`; look before you build.
-- Keep copy on-brand: warm, encouraging, plant-nerdy but never preachy (see the `brand-voice` skill).
-- Never commit secrets. Anything personal or machine-specific goes in `CLAUDE.local.md` (gitignored).
-- Prefer small, reviewable changes. Use **plan mode** for anything non-trivial so we agree on the
-  approach before any files change.
+| Free | $0 | $0 | First few plants: ID up to 5/mo, reminders for up to 3, community. |
+| Plus | $5.99 | $39.99 (save ~44%) | A growing collection: unlimited ID, smart reminders, photo diagnosis, light meter. |
+| Family | $9.99 | $79.99 (save ~33%) | The household: everything in Plus, up to 5 members, shared library, priority help. |
 
 ## Project structure
-- `app/` - the Verdant marketing site (the real product surface).
-- `MEMORY.md` - committed working memory, @imported above (loads every session, keep it lean).
-- `decisions.md` - deep ADR archive, read on demand (not imported).
-- `docs/` - reference library, read on demand.
-- `plans/` - saved plans from plan mode (durable decision history; the Stop hook copies them here).
-- `.claude/` - the Claude Code config: `rules/`, `skills/`, `agents/` (subagents), `commands/`,
-  `hooks/`, `settings.json`.
-- `.mcp.json` - external tools/data wired in over MCP (Claude Design lives here).
+- `app/`: the Verdant site (see `app/CLAUDE.md`, which loads when Claude works in there).
+- `.claude/`: the Claude Code config (see `.claude/EXPLAIN.md`): settings, rules, skills, agents,
+  agent-memory, hooks, workflows.
+- `.mcp.json`: MCP servers (see `EXPLAIN-MCP.md`).
+- `docs/`, `specs/`: reference, acceptance criteria, test plans.
+- `MEMORY.md` (imported), `decisions.md` (on demand), `plans/` (saved plan-mode plans).
+
+## Compact instructions
+When compacting, keep: the current task, the names of any failing tests, the files touched, and any
+decision not yet written to MEMORY.md.
 
 ## Good to know
-<!-- 📘 A "good to know" section is a cheap way to prevent repeated mistakes. Add to it whenever
-     you find yourself correcting Claude on the same thing twice. -->
-- The design system is the source of truth for colors, spacing, and components. Don't invent
-  one-off styles; use the synced tokens/components.
 - This is a teaching repo. Clarity beats cleverness everywhere.
+- The design system is the source of truth for colors, spacing and components.

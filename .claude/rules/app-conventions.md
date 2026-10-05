@@ -6,7 +6,7 @@ paths:
 
 <!-- 📘 A PATH-SCOPED rule. The `paths:` frontmatter above means Claude only loads this file when it
      reads a TypeScript or TSX file under app/. Editing a markdown doc or the site config? These
-     conventions stay out of context. Open app/components/Hero.tsx? They show up. That's the win:
+     conventions stay out of context. Open app/src/components/site/Hero.tsx? They show up. That's the win:
      frontend rules are present exactly when you're doing frontend work, and free otherwise. -->
 
 # Verdant site conventions (app/)

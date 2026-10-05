@@ -1,6 +1,9 @@
 # Personal, machine-specific Claude context (see CLAUDE.local.md.example)
 CLAUDE.local.md
 
+# Personal session handoff note (written by the `handoff` skill, read back by the SessionStart hook)
+HANDOFF.md
+
 # Secrets
 .env
 .env.*
@@ -11,9 +14,22 @@ node_modules/
 .next/
 out/
 dist/
+*.tsbuildinfo
+coverage/
+
+# Playwright test output and Playwright MCP screenshots/snapshots
+test-results/
+playwright-report/
+blob-report/
+.playwright-mcp/
+
+# Claude Code: worktrees, per-machine agent memory, per-session marker
+.claude/worktrees/
+.claude/agent-memory-local/
+.claude/.session-start
+
+# Reports written by the nightly routine (see docs/automation/desktop-routine.md)
+reports/
 
 # OS
 .DS_Store
-
-# Claude Code per-session marker (used by the Stop hook to scope plan saves)
-.claude/.session-start

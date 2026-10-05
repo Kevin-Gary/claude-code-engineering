@@ -3,6 +3,18 @@
     "claude_design": {
       "type": "http",
       "url": "https://api.anthropic.com/v1/design/mcp"
+    },
+    "claude-code-docs": {
+      "type": "http",
+      "url": "https://code.claude.com/docs/mcp"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@0.0.83", "--isolated", "--output-dir", ".playwright-mcp"]
+    },
+    "playwright-test": {
+      "command": "npx",
+      "args": ["playwright", "run-test-mcp-server"]
     }
   }
 }
