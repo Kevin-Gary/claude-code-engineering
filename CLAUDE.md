@@ -9,9 +9,13 @@ Verdant is a plant-care and plant-identification company. This repo holds the **
 (in `app/`) plus the Claude Code setup used to build, test and ship it. It doubles as a teaching
 repo: the comments marked `<!-- 📘 ... -->` explain what each piece is and why it exists.
 
-<!-- 📘 Nothing below is @imported: memory/ and docs/ load only when Claude reads them, so they cost
-     zero context until a task needs them. This file carries the pointer; the knowledge lives one hop
-     away. -->
+<!-- 📘 Almost nothing here is @imported: memory/ and docs/ load only when Claude reads them, so they
+     cost zero context until a task needs them. This file carries the pointer; the knowledge lives one
+     hop away. The ONE import is the PR format below: short, and needed whenever Claude writes a PR. -->
+## Pull requests
+Write every PR description in this format (an @import: the file loads at the start of every session):
+@docs/pr-format.md
+
 ## Reference (read on demand, not imported)
 - `memory/`: the team's notes. `memory/notes.md` (dated gotchas and decisions) and
   `memory/decisions.md` (the full "why"). Check them before changing something that looks deliberate.
