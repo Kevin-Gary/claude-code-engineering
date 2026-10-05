@@ -10,7 +10,6 @@ context window. The question is always: **who writes it, where does it live, and
 | Managed policy | OS-level `CLAUDE.md` set by IT | Your org | Pushed by IT | Every session |
 | User | `~/.claude/CLAUDE.md` | You | No (your machine) | Every session, every project |
 | Project | `CLAUDE.md` (or `.claude/CLAUDE.md`) | Your team | **Yes** | Every session |
-| Project, imported | `@MEMORY.md` from CLAUDE.md | Your team, plus Claude when this repo's Stop hook nudges it | **Yes** | Every session |
 | Local | `CLAUDE.local.md` | You | No (gitignored) | Every session |
 | Nested | `app/CLAUDE.md` | Your team | **Yes** | When Claude reads files in `app/` |
 | Rules | `.claude/rules/*.md` | Your team | **Yes** | Always, or when a `paths:` glob matches |
@@ -18,7 +17,8 @@ context window. The question is always: **who writes it, where does it live, and
 | Agent memory, project | `.claude/agent-memory/<agent>/` | **Claude** (that agent) | **Yes** | When that agent runs |
 | Agent memory, local | `.claude/agent-memory-local/<agent>/` | Claude (that agent) | No (gitignored) | When that agent runs |
 | Handoff | `HANDOFF.md` | Claude, when you run `/handoff` | No (gitignored) | When the next session reads it |
-| Deep reference | `decisions.md`, `docs/` | Your team | **Yes** | Only when Claude reads them |
+| Team notes | `memory/` (`notes.md`, `decisions.md`) | Your team, or Claude when you ask | **Yes** | Only when Claude reads them (CLAUDE.md points there) |
+| Deep reference | `docs/` | Your team | **Yes** | Only when Claude reads them |
 
 ## "Agent memory is the only shared, committed kind." What that means
 
@@ -32,15 +32,11 @@ no prompt from you. The difference is where the files land:
   agent starts with the same notes.
 
 So the precise version is: of the memory Claude Code manages for you, project-scope agent memory is
-the only kind stored in the repo. Everything else that is shared (CLAUDE.md, rules, MEMORY.md) is a
-plain file. People usually write those, and Claude edits them like any other file.
+the only kind stored in the repo. Everything else that is shared (CLAUDE.md, rules, `memory/`) is a
+plain file. People usually write those, and Claude edits them like any other file when you ask.
 
-Two caveats, both visible in this repo:
+One caveat:
 
-- **This repo's MEMORY.md is a hand-built convention.** The Stop hook
-  (`.claude/hooks/persist-memory.sh`) nudges Claude to append decisions to it, so Claude does write
-  to a committed file without being asked. That is a hook you built, not a Claude Code feature, and
-  it shows how a team can get "auto memory, but shared" today.
 - **Agent memory rides on auto memory.** If auto memory is turned off (`autoMemoryEnabled: false`
   or `CLAUDE_CODE_DISABLE_AUTO_MEMORY`), the `memory` field on an agent does nothing.
 
@@ -54,7 +50,8 @@ updates `.claude/agent-memory/qa-explorer/MEMORY.md` with selectors that work an
 - A rule everyone must follow in every session: **CLAUDE.md** (keep it under ~200 lines).
 - A rule for one part of the code: a **path-scoped rule** or a **nested CLAUDE.md**.
 - Something only true on your machine: **CLAUDE.local.md**.
-- A decision and its reasoning: one line in **MEMORY.md**, the full story in **decisions.md**.
+- A decision or gotcha worth keeping: a dated line in **memory/notes.md**, the full story in
+  **memory/decisions.md**. Loaded only when Claude needs it (see `memory/README.md`).
 - Where the current task stands, for the next session: **HANDOFF.md** (`/handoff`).
 - What a specialist agent keeps rediscovering: that agent's **memory**.
 - A fact that changes every session (branch, recent commits): a **SessionStart hook**, not a file.

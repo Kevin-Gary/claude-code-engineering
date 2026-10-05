@@ -17,8 +17,8 @@
 #   --strict-mcp-config        load no MCP servers (none were passed with --mcp-config), so the
 #                              Playwright servers in .mcp.json do not start on the CI runner.
 #   --settings '{"disableAllHooks": true}'
-#                              skip the repo's hooks for this run. The Stop hook that nudges Claude
-#                              to edit MEMORY.md would only waste turns here.
+#                              skip the repo's hooks for this run. Local hooks (typecheck, plan
+#                              saving) would only waste turns here.
 #
 # Without --bare, `claude -p` still loads this repo's CLAUDE.md and skills, which is what you want
 # for "review against our standards". Without the flags above it would also run the repo's hooks

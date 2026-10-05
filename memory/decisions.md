@@ -1,14 +1,14 @@
 <!-- 📘 decisions.md is the DEEP archive of durable decisions (ADR style: Context / Decision /
-     Consequences). Unlike MEMORY.md, it is deliberately NOT @imported by CLAUDE.md, so it does NOT
+     Consequences). Like everything in memory/, it is deliberately NOT @imported by CLAUDE.md, so it does NOT
      load into context automatically. Claude reads it ON DEMAND (it greps or opens it when it needs
-     the full reasoning), or you pull a single entry into one prompt with @decisions.md.
+     the full reasoning), or you pull a single entry into one prompt with @memory/decisions.md.
      Why split it out: @import does not save context (imported files load in full at launch), so the
      way you keep the always-on context lean is to leave the deep history UN-imported and read it
-     only when it matters. MEMORY.md holds the one-line "what"; this file holds the full "why". -->
+     only when it matters. notes.md holds the one-line "what"; this file holds the full "why". -->
 
 # Verdant - decision records
 
-Durable, ADR-style decisions. Append new entries at the bottom. Keep MEMORY.md's one-liner in sync.
+Durable, ADR-style decisions. Append new entries at the bottom, with a one-liner in notes.md.
 
 ---
 

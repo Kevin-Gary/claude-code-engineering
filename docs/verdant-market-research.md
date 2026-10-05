@@ -38,4 +38,4 @@ keeping 3 to 30 houseplants who wants two things: "what is this plant?" and "how
 
 Give the ID-and-care magic away on a free tier to maximize installs (the site's whole job), charge
 for depth on Plus, and add a Family tier for multi-person households. Full decision and the tier
-table: see `decisions.md` (2026-06-24) and `CLAUDE.md` (Pricing and business model).
+table: see `memory/decisions.md` (2026-06-24) and `CLAUDE.md` (Pricing and business model).

@@ -96,10 +96,6 @@
           {
             "type": "command",
             "command": "bash -c 'dest=\"$CLAUDE_PROJECT_DIR/plans\"; mkdir -p \"$dest\"; marker=\"$CLAUDE_PROJECT_DIR/.claude/.session-start\"; latest=$(ls -t \"$HOME/.claude/plans\"/*.md 2>/dev/null | head -1); [ -n \"$latest\" ] && [ -f \"$marker\" ] && [ \"$latest\" -nt \"$marker\" ] && cp -n \"$latest\" \"$dest/\" 2>/dev/null; exit 0'"
-          },
-          {
-            "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/persist-memory.sh\""
           }
         ]
       }

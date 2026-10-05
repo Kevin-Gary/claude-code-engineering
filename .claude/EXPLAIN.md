@@ -22,8 +22,7 @@ Everything here is committed and shared with the team, except where noted.
   - `guard.mjs` (PreToolUse on Bash, Edit, Write): blocks dangerous commands and protected paths.
   - `typecheck-after-edit.sh` (PostToolUse on Edit, Write): runs tsc and feeds errors back to Claude.
   - `notify.sh` (Notification): a desktop ping when Claude waits on you (terminal sessions).
-  - `persist-memory.sh` (Stop): nudges Claude to log durable decisions in MEMORY.md. Skips itself
-    in CI and when `VERDANT_SKIP_MEMORY_NUDGE` is set (there is no per-hook off switch).
+  - A Stop hook (inline in `settings.json`): saves this session's plan-mode plan into `plans/`.
 - `workflows/`: saved dynamic workflows (JavaScript that orchestrates many subagents). A saved
   workflow runs as `/<name>`, for example `/verdant-design-audit`.
 - `launch.json`: how the Claude desktop app starts the dev server for its preview pane.

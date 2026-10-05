@@ -12,8 +12,8 @@
 # Requires: the claude CLI, logged in. Each run costs a few cents.
 #
 # The flags keep the two runs comparable: --tools limits Claude to read-only tools,
-# --strict-mcp-config skips MCP servers, and disableAllHooks stops the repo's Stop hook from adding
-# extra turns (and from editing MEMORY.md) in the middle of a measurement.
+# --strict-mcp-config skips MCP servers, and disableAllHooks keeps the repo's hooks from adding
+# extra context or turns in the middle of a measurement.
 
 set -euo pipefail
 cd "$(dirname "$0")/.."

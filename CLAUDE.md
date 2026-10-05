@@ -9,13 +9,13 @@ Verdant is a plant-care and plant-identification company. This repo holds the **
 (in `app/`) plus the Claude Code setup used to build, test and ship it. It doubles as a teaching
 repo: the comments marked `<!-- 📘 ... -->` explain what each piece is and why it exists.
 
-<!-- 📘 @import loads MEMORY.md in full every session (our committed, team-shared working memory).
-     decisions.md and docs/ are NOT imported: they load only when read, so they cost zero context
-     until a task needs them. -->
-@MEMORY.md
-
+<!-- 📘 Nothing below is @imported: memory/ and docs/ load only when Claude reads them, so they cost
+     zero context until a task needs them. This file carries the pointer; the knowledge lives one hop
+     away. -->
 ## Reference (read on demand, not imported)
-- `decisions.md`: the ADR archive. Grep it for the full "why" behind a decision.
+- `memory/`: the team's notes. `memory/notes.md` (dated gotchas and decisions) and
+  `memory/decisions.md` (the full "why"). Check them before changing something that looks deliberate.
+  How to add to them: `memory/README.md`.
 - `docs/`: specs, the session's learning notes, automation guides. Pull one in with `@docs/...`.
 
 ## The engineering surface
@@ -55,7 +55,7 @@ Acceptance criteria live in `docs/features/`, test plans in `specs/`, E2E tests 
 
 ## Pricing and business model
 Freemium: a free tier that feeds the install funnel, plus two paid tiers (the reasoning is in
-`decisions.md`, 2026-06-24). Prices shown on the site must match this table; if they disagree, this
+`memory/decisions.md`, 2026-06-24). Prices shown on the site must match this table; if they disagree, this
 file wins and the site is wrong.
 
 | Tier | Monthly | Annual | For |
@@ -70,11 +70,11 @@ file wins and the site is wrong.
   agent-memory, hooks, workflows.
 - `.mcp.json`: MCP servers (see `EXPLAIN-MCP.md`).
 - `docs/`, `specs/`: reference, acceptance criteria, test plans.
-- `MEMORY.md` (imported), `decisions.md` (on demand), `plans/` (saved plan-mode plans).
+- `memory/` (team notes, on demand), `plans/` (saved plan-mode plans).
 
 ## Compact instructions
 When compacting, keep: the current task, the names of any failing tests, the files touched, and any
-decision not yet written to MEMORY.md.
+decision not yet written to memory/notes.md.
 
 ## Good to know
 - This is a teaching repo. Clarity beats cleverness everywhere.

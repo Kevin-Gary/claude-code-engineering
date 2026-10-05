@@ -54,7 +54,7 @@ A hook is a script that runs at a fixed point: before a tool call (`PreToolUse`)
 | PostToolUse typecheck | `.claude/hooks/typecheck-after-edit.sh` | Feed errors back so Claude fixes them |
 | SessionStart context | `.claude/hooks/session-context.sh` | Inject facts that change every session, also after `/compact` |
 | Notification | `.claude/hooks/notify.sh` | Get pinged when Claude waits on you |
-| Stop | `.claude/hooks/persist-memory.sh` | Ask Claude to do one more thing before it yields |
+| Stop | inline in `settings.json` | Copy this session's plan-mode plan into `plans/` when Claude yields |
 
 How hooks and rules combine:
 - A hook that **exits 2** blocks the call before rules run, even if an allow rule matches.

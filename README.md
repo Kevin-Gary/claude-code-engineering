@@ -36,8 +36,7 @@ E2E tests: `npm run test:e2e` (needs a browser: `npx playwright install chromium
 | --- | --- |
 | [`CLAUDE.md`](./CLAUDE.md) | The project contract Claude auto-loads every session. Scopes, inheritance, `@`-imports, compact instructions. |
 | [`app/CLAUDE.md`](./app/CLAUDE.md) | A nested CLAUDE.md that loads only when Claude works in `app/`. |
-| [`MEMORY.md`](./MEMORY.md) | Committed, team-shared memory, `@`-imported so it loads every session. |
-| [`decisions.md`](./decisions.md) | The ADR archive. NOT imported, so it loads only when read. |
+| [`memory/`](./memory) | The team's notes (`notes.md`) and decision records (`decisions.md`). NOT imported: CLAUDE.md points here and Claude reads them on demand. `memory/README.md` says what goes in. |
 | [`CLAUDE.local.md.example`](./CLAUDE.local.md.example) | Personal, gitignored overrides. |
 | [`.claude/rules/`](./.claude/rules) | Modular instructions: always-on, or path-scoped via `paths:` globs. |
 | [`.claude/agent-memory/`](./.claude/agent-memory) | Notes an agent writes for itself, committed and shared (of Claude Code's built-in memory systems, the only one stored in the repo). |

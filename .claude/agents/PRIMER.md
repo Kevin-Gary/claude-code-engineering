@@ -39,8 +39,7 @@ as it learns. Because that folder is inside the repo, it gets committed, so the 
 learns together. Compare:
 
 - **Auto memory**: Claude's own notes, in `~/.claude/projects/<repo>/memory/` on your machine. Never shared.
-- **CLAUDE.md, rules, MEMORY.md**: shared through git, but plain files that people mostly write.
-  (This repo's Stop hook nudges Claude to append to MEMORY.md; that is a hand-built convention.)
+- **CLAUDE.md, rules, `memory/`**: shared through git, but plain files that people mostly write.
 - **Agent memory, `project` scope**: managed by Claude Code, written by the agent, stored in the
   repo. Of the built-in memory systems, it is the only one that travels through git.
 - `local` scope uses `.claude/agent-memory-local/` (gitignored); `user` scope lives in `~/.claude/agent-memory/`.

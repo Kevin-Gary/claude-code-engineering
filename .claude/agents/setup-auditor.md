@@ -37,7 +37,7 @@ what you are looking for.
 - `.claude/agents/`
 - `.claude/hooks/`
 - `.mcp.json`, `REVIEW.md`, `.github/workflows/`
-- `MEMORY.md`, `decisions.md`, `docs/`, `plans/`
+- `memory/`, `docs/`, `plans/`
 
 **The sources.** Use these, and prefer them over anything else you find:
 

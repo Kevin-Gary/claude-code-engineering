@@ -18,15 +18,7 @@
 
 ## Personal permissions and hooks
 Personal permission rules and hook tweaks belong in `.claude/settings.local.json` (also gitignored),
-not here. For example, during a live class I silence the memory-nudge Stop hook so it does not
-interrupt a demo. Claude Code cannot switch off one hook while keeping it configured, so that hook
-reads its own environment variable, and `settings.local.json` sets it:
-
-```json
-{
-  "env": { "VERDANT_SKIP_MEMORY_NUDGE": "1" }
-}
-```
+not here.
 
 Agent teams work the same way, as a personal opt-in:
 
