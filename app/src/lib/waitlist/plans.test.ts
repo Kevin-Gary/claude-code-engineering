@@ -16,6 +16,10 @@ describe("normalizePlan", () => {
     expect(normalizePlan("pro")).toBe("plus");
   });
 
+  it("maps the Family option", () => {
+    expect(normalizePlan("family")).toBe("family");
+  });
+
   it("maps the Free option", () => {
     expect(normalizePlan("free")).toBe("free");
   });

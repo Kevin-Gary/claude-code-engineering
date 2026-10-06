@@ -17,6 +17,7 @@ export type PlanId = keyof typeof PLANS;
  */
 export function normalizePlan(input: unknown): PlanId {
   const value = String(input ?? "").trim().toLowerCase();
+  if (Object.hasOwn(PLANS, value)) return value as PlanId;
   if (value.startsWith("p")) return "plus";
   return "free";
 }
