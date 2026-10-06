@@ -2,6 +2,13 @@
 
 # Verdant - notes
 
+## 2026-10-05 - Gotcha: keep vite as a direct devDependency of app/
+Vitest pulls in vite only as a peer dependency, so npm (11.5.1) marked vite's optional native
+builds (rolldown, lightningcss, fsevents) as `peer` and dropped them from the lockfile on the next
+`npm install <anything>`. Vitest then failed with "Cannot find native binding". Listing `vite` in
+`app/package.json` devDependencies (same version Vitest resolves) keeps those builds in the lock.
+Do not remove it as "unused".
+
 ## 2026-10-05 - Memory: built-in memory plus this on-demand folder
 The hand-built memory log (a MEMORY.md imported into every session, plus a Stop hook that nudged
 Claude to append to it) is gone. Claude Code's auto memory covers personal notes, agent memory
