@@ -43,10 +43,11 @@
  *    - A saved workflow also runs as a slash command: `/verdant-design-audit`.
  *    - Run `/workflows` to watch the live progress tree while one executes.
  *
- *  ANOTHER WORKFLOW WORTH WRITING (an exercise): a per-route security audit.
- *  Fan out one `security-reviewer` agent per API route file (app/src/app/api/<name>/route.ts), then a
- *  skeptic per finding that must produce a working exploit (a curl command) or
- *  drop it. Same two-stage shape as this file, different checklist.
+ *  THE SECOND WORKFLOW IN THIS FOLDER: api-input-audit.js, a per-route security
+ *  audit. It discovers every API route file at runtime, fans out one
+ *  `security-reviewer` agent per route, then one `verifier` per finding that
+ *  must produce a concrete request (a curl command) or drop it. Same two-stage
+ *  shape as this file, different checklist, plus `agentType` and budgets.
  *
  *  WHAT THIS WORKFLOW DOES & WHY YOU'D USE IT:
  *    A design-system audit of the Verdant marketing site. It fans out one

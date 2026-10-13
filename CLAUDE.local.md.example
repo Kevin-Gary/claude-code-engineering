@@ -28,7 +28,8 @@ Agent teams work the same way, as a personal opt-in:
 }
 ```
 
-Agent teams are experimental and terminal-CLI only. We keep that flag OUT of the committed
+Agent teams are experimental and work in interactive CLI sessions only (a cloud session can enable
+them with the same variable on its environment). We keep that flag OUT of the committed
 `.claude/settings.json` on purpose: while it is on, a subagent Claude names launches as a teammate
 instead of a plain subagent, which changes the behavior the shared skeleton teaches. Turn it on per
 machine here if you want to experiment. (Both keys can sit in the same `env` block.)
