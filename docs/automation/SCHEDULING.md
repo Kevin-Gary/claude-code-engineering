@@ -4,6 +4,9 @@
 
 # Three schedulers, one skill
 
+> **Two side-by-side examples:** [docs/automation/schedules/](schedules/): 1. the schedule committed in the repo (CI), 2. the schedule set per person (desktop task, routine, `/loop`).
+
+
 Claude Code can run a prompt on a schedule in three places. They differ in where the run happens
 and who owns the schedule. What they share: each one can run a **skill**, so the instructions can
 live in the repo, reviewed and versioned like code, while each scheduler only says `/morning-health`.

@@ -1,0 +1,31 @@
+# 📘 EXAMPLE, not active. To use it: copy to .github/workflows/morning-health.yml and add an
+# ANTHROPIC_API_KEY repository secret. The SCHEDULE IS COMMITTED: the cron line below is the whole
+# schedule, reviewed in a PR like any other code. It runs the committed /morning-health skill with
+# the organization's key, whether or not anyone's laptop is on.
+# Syntax: docs at code.claude.com/docs/en/github-actions ("Run on a schedule").
+name: Morning health
+on:
+  schedule:
+    - cron: "7 16 * * 1-5" # 9:07 AM Pacific (PDT), Monday to Friday. Cron is UTC.
+  workflow_dispatch: {} # also lets someone run it by hand from the Actions tab
+jobs:
+  morning-health:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history, so the skill can read recent commits
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # The instructions live in .claude/skills/morning-health/SKILL.md. The skill's own
+          # allowed-tools frontmatter grants the commands it runs.
+          prompt: "/morning-health"
