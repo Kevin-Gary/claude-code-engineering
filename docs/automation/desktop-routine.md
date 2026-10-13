@@ -1,7 +1,7 @@
 <!-- 📘 A Desktop LOCAL ROUTINE (scheduled task): runs on your machine on a schedule, with access to
      your local repo, even when no session is open. It fires only while the desktop app is open and
-     the computer is awake. Create it in the Claude desktop app from the Routines page and paste the
-     instructions below. -->
+     the computer is awake. Create it in the Claude desktop app from the Routines page. Its instructions are one
+     line, `/nightly-check`: the real instructions live in the committed skill. -->
 
 # Nightly health check (Desktop local routine)
 
@@ -17,19 +17,16 @@ for each, and later runs approve the same tools on their own. Skip this and a sc
 at the first prompt until you answer it. (Auto mode avoids the prompts, with a classifier checking
 each action instead of you.)
 
-## Instructions (paste this)
+## Instructions
 
 ```
-Run `npm ci`, then `npm run check`, then `npm run test:e2e`.
-
-If everything passes, write one line to reports/nightly-<date>.md saying so, and stop.
-
-If anything fails:
-1. Read the failure output and the code involved.
-2. Write reports/nightly-<date>.md with: which command failed, the exact error, the most likely
-   cause (file and line), and a suggested fix.
-3. Do NOT change any code and do NOT commit. A human decides.
+/nightly-check
 ```
+
+That's the whole prompt. The instructions live in the committed skill
+[`.claude/skills/nightly-check/SKILL.md`](../../.claude/skills/nightly-check/SKILL.md), so every
+teammate who schedules it runs the same check, and a change to the skill (in a PR) reaches every
+schedule on its next run.
 
 `reports/` is gitignored, so the reports stay on your machine.
 
@@ -44,7 +41,7 @@ If anything fails:
 
 ## Share it with the team
 
-The routine's instructions live on your machine (`~/.claude/scheduled-tasks/<name>/SKILL.md`, with
-the schedule kept by the Desktop app), not in the repo, so teammates cannot see or reuse them. To share one check across everyone's schedulers, commit the instructions as a skill and
-make the routine's instructions just `/skill-name`. This repo does that with `/morning-health`:
-see [SCHEDULING.md](SCHEDULING.md).
+Share the skill, not the schedule. The routine itself lives on your machine
+(`~/.claude/scheduled-tasks/<name>/SKILL.md`, with the schedule kept by the Desktop app), so it can't
+be committed. The skill can, and it is. Teammates create their own routine with `/nightly-check`.
+See [schedules/](schedules/) for the two options side by side.

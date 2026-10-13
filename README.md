@@ -44,7 +44,7 @@ E2E tests: `npm run test:e2e` (needs a browser: `npx playwright install chromium
 ### Teaching Claude your codebase
 | Path | Teaches |
 | --- | --- |
-| [`.claude/skills/`](./.claude/skills) | Skills: `verdant-review`, `write-tests`, `verify`, `handoff`, `security-checklist`, `brand-voice`, `ship-update`, and the schedulable `morning-health` and `dependency-audit`. See `skills/EXPLAIN.md`. |
+| [`.claude/skills/`](./.claude/skills) | Skills: `verdant-review`, `write-tests`, `verify`, `handoff`, `security-checklist`, `brand-voice`, `ship-update`, and the schedulable `morning-health`, `dependency-audit`, `bug-hunter`, `nightly-check` and `pr-check` (each scheduled as a one-line `/name`). See `skills/EXPLAIN.md`. |
 | [`.claude/agents/`](./.claude/agents) | Subagents: `security-reviewer`, `code-reviewer`, `test-writer`, `qa-explorer`, `verifier`, `implementer`, plus Playwright's test agents. See `agents/PRIMER.md` and `agents/ORCHESTRATION.md` (who talks to whom). |
 | [`.claude/workflows/`](./.claude/workflows) | Dynamic workflows that orchestrate many subagents: `/verdant-design-audit` and `/api-input-audit`. |
 | [`.claude/loop.md`](./.claude/loop.md) | The default prompt for a bare `/loop` in this project. |

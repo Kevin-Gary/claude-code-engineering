@@ -16,6 +16,9 @@ full skill only when it is relevant (or when you type `/skill-name`).
 | `handoff` | You only (`disable-model-invocation: true`) | Writes HANDOFF.md for a fresh session. |
 | `ship-update` | You only | A former custom command, now a skill. |
 | `morning-health` | You or Claude (and schedulers) | A report-only daily check, written to be a scheduler's one-line prompt. `disallowed-tools: AskUserQuestion` because nobody is there to answer. |
+| `bug-hunter` | You or Claude (and schedulers) | Finds one real bug, proves it with a failing test, fixes it on a branch, opens a PR. No proof, no PR. Schedule it as `/bug-hunter`. |
+| `nightly-check` | You or Claude (and schedulers) | Report-only nightly run of the checks and e2e tests. The prompt behind `docs/automation/desktop-routine.md`. |
+| `pr-check` | A cloud routine on a new PR | Runs the checks and `/verdant-review`, posts one comment. The prompt behind `docs/automation/cloud-routine.md`. |
 | `dependency-audit` | You or Claude (and schedulers) | A report-only weekly audit of `npm outdated` and `npm audit`. |
 
 ## Anatomy

@@ -8,20 +8,18 @@
 1. Install the Claude GitHub App on the repository (required for GitHub event triggers).
 2. Create a routine at claude.ai/code/routines and add this repository.
 3. Add a trigger: **GitHub event**, `pull_request.opened` (optionally also `synchronize`).
-4. Environment: add a setup script of `npm ci` so the routine can run the checks.
+4. Environment: the Default one is enough. The repo's SessionStart hook
+   (`scripts/cloud/session-start.sh`) runs `npm ci` in cloud sessions, so no setup script is needed.
 
-## Instructions (paste this)
+## Prompt
 
 ```
-A pull request was opened. Check out its branch.
-
-1. Run `npm run check`. Note any failure.
-2. Run /verdant-review against `git diff origin/main...HEAD`.
-3. Post ONE pull request comment with: the check result, the review verdict, and the findings
-   grouped by severity with file:line. Keep it under 40 lines.
-
-Do not push commits to the pull request branch.
+/pr-check
 ```
+
+The instructions live in the committed skill
+[`.claude/skills/pr-check/SKILL.md`](../../.claude/skills/pr-check/SKILL.md): the routine's prompt is
+one line, and a change to the skill reaches the routine on its next run.
 
 ## Things to know
 - A routine runs as **you**: comments and commits carry your GitHub identity, and runs count
