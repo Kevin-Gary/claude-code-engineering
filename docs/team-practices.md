@@ -12,6 +12,7 @@
 | `.claude/agent-memory/` (agents with `memory: project`) | Auto memory (`~/.claude/projects/<repo>/memory/`) |
 | `.mcp.json` (servers, with `${VAR}` for secrets) | The secrets themselves, in your environment or `.env.local` |
 | `REVIEW.md`, `specs/`, `docs/` | `HANDOFF.md`, `plans/` drafts you do not want to share |
+| `.claude/loop.md`, schedulable skills (`/morning-health`) | Your schedules: Desktop tasks (`~/.claude/scheduled-tasks/`), cloud routines (your claude.ai account) |
 
 Rule of thumb: if a teammate would be confused or blocked without it, commit it. If it is true
 only for you or only today, keep it personal.

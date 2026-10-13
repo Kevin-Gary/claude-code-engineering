@@ -13,7 +13,8 @@ Everything here is committed and shared with the team, except where noted.
 - `skills/`: reusable recipes and slash commands (see `skills/EXPLAIN.md`). Custom commands have
   merged into skills: `skills/ship-update/SKILL.md` is `/ship-update`. The old `commands/` folder
   still works, but new ones go here.
-- `agents/`: subagent definitions (see `agents/PRIMER.md`).
+- `agents/`: subagent definitions (see `agents/PRIMER.md`, and `agents/ORCHESTRATION.md` for how
+  they combine).
 - `agent-memory/`: persistent notes written BY agents that set `memory: project`. Committed, so
   the team shares what the agent learned.
 - `hooks/`: scripts attached to lifecycle events in `settings.json`. This project has:
@@ -23,8 +24,13 @@ Everything here is committed and shared with the team, except where noted.
   - `typecheck-after-edit.sh` (PostToolUse on Edit, Write): runs tsc and feeds errors back to Claude.
   - `notify.sh` (Notification): a desktop ping when Claude waits on you (terminal sessions).
   - A Stop hook (inline in `settings.json`): saves this session's plan-mode plan into `plans/`.
+  - `scripts/cloud/session-start.sh` (SessionStart, outside this folder): installs dependencies in
+    cloud sessions only (see `docs/cloud/README.md`).
 - `workflows/`: saved dynamic workflows (JavaScript that orchestrates many subagents). A saved
-  workflow runs as `/<name>`, for example `/verdant-design-audit`.
+  workflow runs as `/<name>`, for example `/verdant-design-audit` or `/api-input-audit`.
+- `loop.md`: the default prompt for a bare `/loop` (no prompt given). Wins over `~/.claude/loop.md`.
+- There is no `scheduled-tasks/` folder here: Desktop scheduled tasks live in
+  `~/.claude/scheduled-tasks/` on each person's machine. See `docs/automation/SCHEDULING.md`.
 - `launch.json`: how the Claude desktop app starts the dev server for its preview pane.
 
 Think of it this way: CLAUDE.md at the root is the always-loaded project bible. The .claude

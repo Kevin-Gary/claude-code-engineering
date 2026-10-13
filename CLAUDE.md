@@ -71,7 +71,7 @@ file wins and the site is wrong.
 ## Project structure
 - `app/`: the Verdant site (see `app/CLAUDE.md`, which loads when Claude works in there).
 - `.claude/`: the Claude Code config (see `.claude/EXPLAIN.md`): settings, rules, skills, agents,
-  agent-memory, hooks, workflows.
+  agent-memory, hooks, workflows, loop.md.
 - `.mcp.json`: MCP servers (see `EXPLAIN-MCP.md`).
 - `docs/`, `specs/`: reference, acceptance criteria, test plans.
 - `memory/` (team notes, on demand), `plans/` (saved plan-mode plans).

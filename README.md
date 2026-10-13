@@ -44,22 +44,24 @@ E2E tests: `npm run test:e2e` (needs a browser: `npx playwright install chromium
 ### Teaching Claude your codebase
 | Path | Teaches |
 | --- | --- |
-| [`.claude/skills/`](./.claude/skills) | Skills: `verdant-review`, `write-tests`, `verify`, `handoff`, `security-checklist`, `brand-voice`, `ship-update`. See `skills/EXPLAIN.md`. |
-| [`.claude/agents/`](./.claude/agents) | Subagents: `security-reviewer`, `code-reviewer`, `test-writer`, `qa-explorer`, plus Playwright's test agents. See `agents/PRIMER.md`. |
-| [`.claude/workflows/`](./.claude/workflows) | A dynamic workflow that orchestrates many subagents, run as `/verdant-design-audit`. |
+| [`.claude/skills/`](./.claude/skills) | Skills: `verdant-review`, `write-tests`, `verify`, `handoff`, `security-checklist`, `brand-voice`, `ship-update`, and the schedulable `morning-health` and `dependency-audit`. See `skills/EXPLAIN.md`. |
+| [`.claude/agents/`](./.claude/agents) | Subagents: `security-reviewer`, `code-reviewer`, `test-writer`, `qa-explorer`, `verifier`, `implementer`, plus Playwright's test agents. See `agents/PRIMER.md` and `agents/ORCHESTRATION.md` (who talks to whom). |
+| [`.claude/workflows/`](./.claude/workflows) | Dynamic workflows that orchestrate many subagents: `/verdant-design-audit` and `/api-input-audit`. |
+| [`.claude/loop.md`](./.claude/loop.md) | The default prompt for a bare `/loop` in this project. |
 
 ### Control
 | Path | Teaches |
 | --- | --- |
 | [`.claude/settings.json`](./.claude/settings.json) | Permissions (allow/ask/deny), hooks, plugins, marketplaces. |
 | [`.claude/hooks/`](./.claude/hooks) | A PreToolUse guard, typecheck-on-edit, SessionStart context, a notification. |
+| [`scripts/cloud/`](./scripts/cloud) | A SessionStart hook that installs dependencies only in cloud sessions. |
 
 ### Connect and automate
 | Path | Teaches |
 | --- | --- |
 | [`.mcp.json`](./.mcp.json) | MCP servers: Playwright, the Playwright test server, the Claude Code docs. See `EXPLAIN-MCP.md`. |
 | [`.github/workflows/`](./.github/workflows) | CI (deterministic, no AI) and AI PR review with the official action. |
-| [`ci-examples/`](./ci-examples) + [`scripts/ci/`](./scripts/ci) | Headless `claude -p` review for any CI (a pattern). |
+| [`ci-examples/`](./ci-examples) + [`scripts/ci/`](./scripts/ci) | Headless `claude -p` for any CI (a pattern): PR review, and a scheduled `/morning-health` run. |
 | [`REVIEW.md`](./REVIEW.md) | Tunes Anthropic's managed Code Review for this repo. |
 
 ### Quality and QA
@@ -74,7 +76,8 @@ E2E tests: `npm run test:e2e` (needs a browser: `npx playwright install chromium
 | Path | Teaches |
 | --- | --- |
 | [`docs/learn/`](./docs/learn) | The agentic loop and search, tokens and context, memory layers, control (modes, rules, hooks), stack translation. |
-| [`docs/automation/`](./docs/automation) | `/loop`, Desktop and cloud routines, worktrees, Remote Control. |
+| [`docs/automation/`](./docs/automation) | `/loop`, Desktop and cloud routines, worktrees, Remote Control. `SCHEDULING.md`: three schedulers, one skill. |
+| [`docs/cloud/`](./docs/cloud) | Running this repo in a cloud session, and from your phone. |
 | [`docs/team-practices.md`](./docs/team-practices.md) | What to commit, PR conventions for AI-assisted code. |
 | [`app/`](./app) | The real app to operate on. |
 
@@ -97,8 +100,9 @@ reference secrets as `${VAR}`, never values. Full notes in [`EXPLAIN-MCP.md`](./
   (`guard.mjs`) catches some of those, and the sandbox is the real wall. Modes and precedence are
   in [`docs/learn/04-control.md`](./docs/learn/04-control.md).
   "Yes, don't ask again" writes the new rule to `settings.local.json`.
-- **`hooks`**: SessionStart context (also after `/compact`), a PreToolUse guard, typecheck after
-  every edit, a notification, and the Stop hooks that save plans and nudge memory.
+- **`hooks`**: SessionStart context (also after `/compact`), a cloud-only dependency install, a
+  PreToolUse guard, typecheck after every edit, a notification, and the Stop hooks that save plans
+  and nudge memory.
 - **`extraKnownMarketplaces` + `enabledPlugins`**: register the `anthropics/skills` marketplace for
   the team and enable `example-skills`.
 

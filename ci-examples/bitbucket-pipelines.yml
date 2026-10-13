@@ -6,6 +6,14 @@
 # Two pipelines on every pull request:
 #   1. checks: the deterministic gate (no AI), same as .github/workflows/ci.yml
 #   2. ai-review: scripts/ci/claude-review.sh asks Claude for a read-only review, as JSON
+# And one custom pipeline for a SCHEDULE:
+#   3. nightly-health: scripts/ci/morning-health.sh runs the committed /morning-health skill.
+#      A custom pipeline never runs on a push; attach it to a schedule in Bitbucket (from the
+#      repository's Pipelines page, add a schedule for branch main and this pipeline).
+#      This is the TEAM-OWNED version of the same skill people schedule on their own machines
+#      (docs/automation/SCHEDULING.md): it runs whether or not anyone's laptop is on, with the
+#      organization's ANTHROPIC_API_KEY from a secured repository variable, so the cost and the
+#      run belong to the team rather than to one person's account.
 image: node:22
 
 definitions:
@@ -35,3 +43,18 @@ pipelines:
                 - bash scripts/ci/claude-review.sh
               artifacts:
                 - claude-review.json
+
+  custom:
+    nightly-health:
+      - step:
+          name: Morning health (headless claude -p, scheduled)
+          caches: [npm]
+          # Full history, so `git log --since=yesterday` sees every commit in the window.
+          clone:
+            depth: full
+          script:
+            - npm ci
+            - npm install -g @anthropic-ai/claude-code
+            - bash scripts/ci/morning-health.sh
+          artifacts:
+            - reports/**

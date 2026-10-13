@@ -23,12 +23,13 @@ playwright-report/
 blob-report/
 .playwright-mcp/
 
-# Claude Code: worktrees, per-machine agent memory, per-session marker
+# Claude Code: worktrees, per-machine agent memory, per-session marker, session scheduler state
 .claude/worktrees/
 .claude/agent-memory-local/
 .claude/.session-start
+.claude/scheduled_tasks.json
 
-# Reports written by the nightly routine (see docs/automation/desktop-routine.md)
+# Reports written by scheduled skills and routines (see docs/automation/SCHEDULING.md)
 reports/
 
 # OS

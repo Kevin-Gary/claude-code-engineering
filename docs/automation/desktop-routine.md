@@ -41,3 +41,10 @@ If anything fails:
   It starts from your local repo's state, so keep your main branch current, or add a
   `git fetch` step and approve it on the first run.
 - **Same commands as CI.** If the nightly is red, CI will be too. Catch it first.
+
+## Share it with the team
+
+The routine's instructions live on your machine (`~/.claude/scheduled-tasks/<name>/SKILL.md`, with
+the schedule kept by the Desktop app), not in the repo, so teammates cannot see or reuse them. To share one check across everyone's schedulers, commit the instructions as a skill and
+make the routine's instructions just `/skill-name`. This repo does that with `/morning-health`:
+see [SCHEDULING.md](SCHEDULING.md).

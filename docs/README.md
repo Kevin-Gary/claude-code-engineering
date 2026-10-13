@@ -27,6 +27,8 @@ The pattern that makes it work is **on-demand loading**:
   - `04-control.md`: permission modes, allow/ask/deny rules, and how hooks combine with them.
   - `stack-translation.md`: how each artifact maps to Python, Go, Java and Ruby.
 - [`automation/`](./automation): `/loop`, Desktop routines, cloud routines, CI, worktrees.
+  `SCHEDULING.md`: three schedulers, one committed skill.
+- [`cloud/`](./cloud): running this repo in a Claude Code cloud session, and from your phone.
 - [`team-practices.md`](./team-practices.md): what to commit, PR conventions for AI-assisted code.
 - [`examples/mcp-with-secrets.json`](./examples/mcp-with-secrets.json): the `${VAR}` pattern for MCP secrets.
 - [`verdant-market-research.md`](./verdant-market-research.md): pricing research behind the freemium model.

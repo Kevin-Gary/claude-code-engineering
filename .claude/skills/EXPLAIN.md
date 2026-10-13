@@ -15,6 +15,8 @@ full skill only when it is relevant (or when you type `/skill-name`).
 | `security-checklist` | Claude only (`user-invocable: false`) | Background knowledge. Preloaded by the `security-reviewer` agent. |
 | `handoff` | You only (`disable-model-invocation: true`) | Writes HANDOFF.md for a fresh session. |
 | `ship-update` | You only | A former custom command, now a skill. |
+| `morning-health` | You or Claude (and schedulers) | A report-only daily check, written to be a scheduler's one-line prompt. `disallowed-tools: AskUserQuestion` because nobody is there to answer. |
+| `dependency-audit` | You or Claude (and schedulers) | A report-only weekly audit of `npm outdated` and `npm audit`. |
 
 ## Anatomy
 
@@ -26,7 +28,10 @@ skills/verdant-review/
 
 Frontmatter fields used here: `description` (what and when; this is what Claude matches on),
 `when_to_use` (trigger phrases), `argument-hint`, `allowed-tools` (pre-approved for that turn),
-`disable-model-invocation`, `user-invocable`.
+`disallowed-tools` (removed while the skill runs), `disable-model-invocation`, `user-invocable`.
+
+A skill you want to SCHEDULE must stay invocable by Claude: a scheduled `/name` does not run a skill
+with `disable-model-invocation: true`. See `docs/automation/SCHEDULING.md`.
 
 ## Dynamic context: `` !`command` ``
 
