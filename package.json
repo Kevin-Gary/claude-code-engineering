@@ -17,6 +17,7 @@
     "test": "npm run test -w app",
     "test:watch": "npm run test:watch -w app",
     "test:e2e": "playwright test",
+    "test:setup": "node --test \"tests/setup/*.test.mjs\"",
     "check": "npm run lint && npm run typecheck && npm run test"
   },
   "devDependencies": {
