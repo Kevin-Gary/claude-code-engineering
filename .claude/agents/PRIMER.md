@@ -80,6 +80,11 @@ agents in section 1 show the current tool names.
 
 ## 6. How you invoke them
 
+- **Ad hoc, no file at all**: you don't need anything in this folder to use subagents. Just ask:
+  "spawn three subagents in parallel: one maps the waitlist feature, one finds its tests, one
+  checks its error handling, five lines each." Claude writes each brief and runs them on a
+  built-in agent (general-purpose, or Explore for read-only search). Make a file here only for
+  a worker you'll reuse, or one that needs enforced tools, a model or memory.
 - **Automatically**: Claude delegates when a task matches an agent's `description`, and can run
   several in parallel ("review each API route in parallel").
 - **By name**: "use the security-reviewer agent on app/src/app/api".
